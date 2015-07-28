@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
 vagrant halt
 vagrant destroy -f
 
@@ -11,8 +9,9 @@ vagrant up
 
 curl https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant > .vagrant/machines/fedora/virtualbox/private_key
 
-# aaaaaaaand halting will replace the key AGAIN!
-#vagrant halt
+vagrant halt
 vagrant package
 
 mv package.box ..
+
+echo "Done, now cd ../postbuild && vagrant up to test"

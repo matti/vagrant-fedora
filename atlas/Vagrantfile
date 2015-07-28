@@ -1,8 +1,7 @@
 Vagrant.configure(2) do |config|
-  config.vm.box = "../Fedora-Cloud-Base-Vagrant-22-20150521.x86_64.vagrant-virtualbox.box"
+  config.vm.box = "matti/fedora-22"
 
   config.vm.provider "virtualbox" do |vbox|
-
     cpus = `sysctl -n hw.ncpu`.to_i
     # sysctl returns Bytes and we need to convert to MB
     mem = `sysctl -n hw.memsize`.to_i / 1024 / 1024 / 4
@@ -11,8 +10,6 @@ Vagrant.configure(2) do |config|
     vbox.cpus = cpus
   end
 
-  # this is intentional: leave the insecure key to the box before packaging.
+  # https://github.com/mitchellh/vagrant/issues/5186#issuecomment-125538877
   config.ssh.insert_key = false
-
-  config.vm.provision :shell, path: "bootstrap.sh"
 end
